@@ -1,95 +1,69 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+import 'bootstrap/dist/css/bootstrap.css';
 
-export default function Home() {
+export default function Form1() {
+
+    async function obtainYears(e: any){
+        e.preventDefault();
+    
+        const data = {
+          CatYears: (e.target.catYears.value),
+          DogYears: (e.target.dogYears.value)
+        }
+
+        const obtainAges:Array<any> = new Array<any>()
+
+        if (data.CatYears > 0 && data.DogYears > 0) {
+          if (data.CatYears >= 15) {
+            const subtractionCat = data.CatYears - 15
+            if (subtractionCat < 9) {
+              obtainAges.push([" Cat Years: " + 1])
+            }else{
+              const subtractionCat2 = subtractionCat - 9;
+              const divideResult = Math.round(subtractionCat2 / 4)
+              const catYear = 2 + divideResult;
+              obtainAges.push([" Cat Years: " + catYear])
+            }
+          }else{
+            obtainAges.push([" Cat Years: " + 0])
+          }
+          
+          if (data.DogYears >= 15) {
+            const subtractionDog = data.DogYears - 15
+            if (subtractionDog < 9) {
+              console.log("subtractionDog",subtractionDog);
+              obtainAges.push([" Dog Years: " + 1])
+            }else{
+              const subtractionDog2 = subtractionDog - 9;
+              const divideResult = Math.round(subtractionDog2 / 5)
+              const dogYear = 2 + divideResult;
+              obtainAges.push([" Dog Years: " + dogYear])
+            }
+          }else{
+            obtainAges.push([" Dog Years: " + 0])
+          }
+         
+          alert(obtainAges)
+        }else{
+          alert("The values must be greater than 0")
+        }
+      }
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <form onSubmit={obtainYears} className="container col-6 text-center mt-4 bg-light">
+    <div>
+        <div className="d-flex justify-content-center form-group">
+            <div className="form-group col-5 px-md-4 mb-3">
+                <label>Cat Years</label>
+                <input type="text" className="form-control" id="catYears" required aria-describedby="emailHelp " />
+            </div>
+            <div className="form-group col-5 px-md-4 mb-3">
+                <label>Dog Years</label>
+                <input type="text" className="form-control" id="dogYears" required aria-describedby="emailHelp " />
+            </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <button type="submit" className="btn btn-primary mt-3 mx-auto d-block">Send Recipe</button>
     </div>
+</form>
   );
 }
